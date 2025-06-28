@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/additional-services")
-@RequiredArgsConstructor
+
 public class AdditionalServiceController {
     private final AdditionalServiceService additionalServiceService;
+
+    public AdditionalServiceController(AdditionalServiceService additionalServiceService) {
+        this.additionalServiceService = additionalServiceService;
+    }
 
     @GetMapping
     public String list(Model model) {
