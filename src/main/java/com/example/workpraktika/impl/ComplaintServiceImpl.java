@@ -1,0 +1,36 @@
+package com.example.workpraktika.impl;
+
+import com.example.workpraktika.model.Complaint;
+import com.example.workpraktika.repository.ComplaintRepo;
+import com.example.workpraktika.service.ComplaintService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class ComplaintServiceImpl implements ComplaintService {
+    private final ComplaintRepo complaintRepository;
+
+    @Override
+    public Complaint save(Complaint complaint) {
+        return complaintRepository.save(complaint);
+    }
+
+    @Override
+    public Optional<Complaint> findById(Long id) {
+        return complaintRepository.findById(id);
+    }
+
+    @Override
+    public List<Complaint> findAll() {
+        return complaintRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        complaintRepository.deleteById(id);
+    }
+}
