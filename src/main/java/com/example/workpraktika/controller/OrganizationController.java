@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/organizations")
-@RequiredArgsConstructor
 public class OrganizationController {
+    public OrganizationController(OrganizationService organizationService) {
+        this.organizationService = organizationService;
+    }
+
     private final OrganizationService organizationService;
 
     @GetMapping

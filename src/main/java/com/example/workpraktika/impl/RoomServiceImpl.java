@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomRepo roomRepository;
+
+    public RoomServiceImpl(RoomRepo roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
     @Override
     public Room save(Room room) {

@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/guests")
-@RequiredArgsConstructor
 public class GuestController {
+    public GuestController(GuestService guestService) {
+        this.guestService = guestService;
+    }
+
     private final GuestService guestService;
 
     @GetMapping

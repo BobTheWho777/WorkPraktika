@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepository;
+
+    public ReservationServiceImpl(ReservationRepo reservationRepository) {
+        this.reservationRepository = reservationRepository;
+    }
 
     @Override
     public Reservation save(Reservation reservation) {

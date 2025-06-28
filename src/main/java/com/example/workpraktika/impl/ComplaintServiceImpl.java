@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ComplaintServiceImpl implements ComplaintService {
     private final ComplaintRepo complaintRepository;
+
+    public ComplaintServiceImpl(ComplaintRepo complaintRepository) {
+        this.complaintRepository = complaintRepository;
+    }
 
     @Override
     public Complaint save(Complaint complaint) {

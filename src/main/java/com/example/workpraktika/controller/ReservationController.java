@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/reservations")
-@RequiredArgsConstructor
 public class ReservationController {
     private final ReservationService reservationService;
     private final RoomService roomService;
@@ -17,6 +16,15 @@ public class ReservationController {
     private final OrganizationService organizationService;
     private final AdditionalServiceService additionalServiceService;
     private final ComplaintService complaintService;
+
+    public ReservationController(ReservationService reservationService, RoomService roomService, GuestService guestService, OrganizationService organizationService, AdditionalServiceService additionalServiceService, ComplaintService complaintService) {
+        this.reservationService = reservationService;
+        this.roomService = roomService;
+        this.guestService = guestService;
+        this.organizationService = organizationService;
+        this.additionalServiceService = additionalServiceService;
+        this.complaintService = complaintService;
+    }
 
     @GetMapping
     public String list(Model model) {

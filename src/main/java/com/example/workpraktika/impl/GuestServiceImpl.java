@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class GuestServiceImpl implements GuestService {
     private final GuestRepo guestRepository;
+
+    public GuestServiceImpl(GuestRepo guestRepository) {
+        this.guestRepository = guestRepository;
+    }
 
     @Override
     public Guest save(Guest guest) {

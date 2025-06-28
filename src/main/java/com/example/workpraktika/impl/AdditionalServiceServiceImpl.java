@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class AdditionalServiceServiceImpl implements AdditionalServiceService {
     private final AdditionalServiceRepo additionalServiceRepository;
+
+    public AdditionalServiceServiceImpl(AdditionalServiceRepo additionalServiceRepository) {
+        this.additionalServiceRepository = additionalServiceRepository;
+    }
 
     @Override
     public additionalService save(additionalService additionalService) {

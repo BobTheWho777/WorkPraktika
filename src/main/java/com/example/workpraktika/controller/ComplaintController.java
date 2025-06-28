@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/complaints")
-@RequiredArgsConstructor
 public class ComplaintController {
+    public ComplaintController(ComplaintService complaintService) {
+        this.complaintService = complaintService;
+    }
+
     private final ComplaintService complaintService;
 
     @GetMapping

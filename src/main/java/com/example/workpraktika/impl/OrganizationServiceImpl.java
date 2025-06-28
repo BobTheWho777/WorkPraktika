@@ -3,6 +3,7 @@ package com.example.workpraktika.impl;
 import com.example.workpraktika.model.Organization;
 import com.example.workpraktika.repository.OrganizationRepo;
 import com.example.workpraktika.service.OrganizationService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepo organizationRepository;
+
+    public OrganizationServiceImpl(OrganizationRepo organizationRepository) {
+        this.organizationRepository = organizationRepository;
+    }
 
     @Override
     public Organization save(Organization organization) {
