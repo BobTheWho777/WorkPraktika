@@ -17,8 +17,13 @@ public class ComplaintController {
     private final ComplaintService complaintService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("complaints", complaintService.findAll());
+    public String list(@RequestParam(required = false) String search, Model model) {
+        if (search != null && !search.isBlank()) {
+            model.addAttribute("complaints", complaintService.findByTextContainingIgnoreCase(search));
+        } else {
+            model.addAttribute("complaints", complaintService.findAll());
+        }
+        model.addAttribute("search", search);
         return "complaints/list";
     }
 

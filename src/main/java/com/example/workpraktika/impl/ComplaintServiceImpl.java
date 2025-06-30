@@ -36,4 +36,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     public void deleteById(Long id) {
         complaintRepository.deleteById(id);
     }
+
+    @Override
+    public List<Complaint> findByTextContainingIgnoreCase(String text) {
+        return complaintRepository.findByTextContainingIgnoreCase(text);
+    }
+
 }
