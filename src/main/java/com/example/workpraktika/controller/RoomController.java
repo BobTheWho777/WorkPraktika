@@ -17,8 +17,13 @@ public class RoomController {
     private final RoomService roomService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("rooms", roomService.findAll());
+    public String list(@RequestParam(value = "search", required = false) String search, Model model) {
+        if (search != null && !search.isEmpty()) {
+            model.addAttribute("rooms", roomService.findByNumberRoom(search));
+        } else {
+            model.addAttribute("rooms", roomService.findAll());
+        }
+        model.addAttribute("search", search);
         return "rooms/list";
     }
 

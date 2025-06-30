@@ -36,4 +36,9 @@ public class RoomServiceImpl implements RoomService {
     public void deleteById(Long id) {
         roomRepository.deleteById(id);
     }
+
+    @Override
+    public List<Room> findByNumberRoom(String numberRoom) {
+        return roomRepository.findByNumberRoomContainingIgnoreCase(numberRoom);
+    }
 }

@@ -2,10 +2,6 @@ package com.example.workpraktika.model;
 
 
 import jakarta.persistence.*;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "rooms")
@@ -14,14 +10,14 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String number_room;
+    private String numberRoom;
     private String room_capacity;
     private String status;
     private String price;
 
-    public Room(Long id, String number_room, String room_capacity, String status, String price) {
+    public Room(Long id, String numberRoom, String room_capacity, String status, String price) {
         this.id = id;
-        this.number_room = number_room;
+        this.numberRoom = numberRoom;
         this.room_capacity = room_capacity;
         this.status = status;
         this.price = price;
@@ -38,12 +34,12 @@ public class Room {
         this.id = id;
     }
 
-    public String getNumber_room() {
-        return number_room;
+    public String getNumberRoom() {
+        return numberRoom;
     }
 
-    public void setNumber_room(String number_room) {
-        this.number_room = number_room;
+    public void setNumberRoom(String numberRoom) {
+        this.numberRoom = numberRoom;
     }
 
     public String getRoom_capacity() {
