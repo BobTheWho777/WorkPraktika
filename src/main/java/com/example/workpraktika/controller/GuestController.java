@@ -17,10 +17,16 @@ public class GuestController {
     private final GuestService guestService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("guests", guestService.findAll());
+    public String list(@RequestParam(required = false) String search, Model model) {
+        if (search != null && !search.isBlank()) {
+            model.addAttribute("guests", guestService.searchByName(search));
+        } else {
+            model.addAttribute("guests", guestService.findAll());
+        }
+        model.addAttribute("search", search);
         return "guests/list";
     }
+
 
     @GetMapping("/new")
     public String createForm(Model model) {

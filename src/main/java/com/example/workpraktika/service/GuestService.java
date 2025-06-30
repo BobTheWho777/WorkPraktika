@@ -10,4 +10,6 @@ public interface GuestService {
     Optional<Guest> findById(Long id);
     List<Guest> findAll();
     void deleteById(Long id);
+    List<Guest> searchByName(String name);
+
 }

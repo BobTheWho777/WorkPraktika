@@ -36,4 +36,10 @@ public class GuestServiceImpl implements GuestService {
     public void deleteById(Long id) {
         guestRepository.deleteById(id);
     }
+
+    @Override
+    public List<Guest> searchByName(String name) {
+        return guestRepository.findByNameContainingIgnoreCase(name);
+    }
+
 }
