@@ -10,4 +10,6 @@ public interface ComplaintService {
     Optional<Complaint> findById(Long id);
     List<Complaint> findAll();
     void deleteById(Long id);
+    List<Complaint> findByTextContainingIgnoreCase(String text);
+
 }
