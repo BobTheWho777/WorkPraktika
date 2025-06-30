@@ -37,4 +37,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void deleteById(Long id) {
         organizationRepository.deleteById(id);
     }
+
+    @Override
+    public List<Organization> searchByName(String name) {
+        return organizationRepository.findByNameContainingIgnoreCase(name);
+    }
+
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/organizations")
 public class OrganizationController {
@@ -17,10 +19,18 @@ public class OrganizationController {
     private final OrganizationService organizationService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("organizations", organizationService.findAll());
+    public String list(@RequestParam(value = "search", required = false) String search, Model model) {
+        List<Organization> organizations;
+        if (search != null && !search.isEmpty()) {
+            organizations = organizationService.searchByName(search);
+        } else {
+            organizations = organizationService.findAll();
+        }
+        model.addAttribute("organizations", organizations);
+        model.addAttribute("search", search);
         return "organizations/list";
     }
+
 
     @GetMapping("/new")
     public String createForm(Model model) {

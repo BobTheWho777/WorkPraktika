@@ -10,4 +10,6 @@ public interface OrganizationService {
     Optional<Organization> findById(Long id);
     List<Organization> findAll();
     void deleteById(Long id);
+    List<Organization> searchByName(String name);
+
 }
