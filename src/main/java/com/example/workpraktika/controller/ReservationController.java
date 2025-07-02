@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/reservations")
 public class ReservationController {
@@ -27,10 +29,16 @@ public class ReservationController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("reservations", reservationService.findAll());
+    public String list(@RequestParam(required = false) String search, Model model) {
+        List<Reservation> reservations = (search != null && !search.isBlank())
+                ? reservationService.searchByGuestName(search)
+                : reservationService.findAll();
+
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("search", search);
         return "reservations/list";
     }
+
 
     @GetMapping("/new")
     public String createForm(Model model) {

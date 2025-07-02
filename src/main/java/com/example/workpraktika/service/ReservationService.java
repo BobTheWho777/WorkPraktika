@@ -10,4 +10,6 @@ public interface ReservationService {
     Optional<Reservation> findById(Long id);
     List<Reservation> findAll();
     void deleteById(Long id);
+    List<Reservation> searchByGuestName(String name);
+
 }

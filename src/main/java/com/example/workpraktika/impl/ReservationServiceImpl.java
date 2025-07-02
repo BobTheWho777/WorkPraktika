@@ -36,4 +36,10 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteById(Long id) {
         reservationRepository.deleteById(id);
     }
+
+    @Override
+    public List<Reservation> searchByGuestName(String name) {
+        return reservationRepository.findByGuestNameContainingIgnoreCase(name);
+    }
+
 }
