@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Список гостей</title>
@@ -27,7 +28,7 @@
 <div class="container mt-4 flex-grow-1">
     <div class="d-flex justify-content-between mb-2">
         <h2>Гости</h2>
-        <div>
+        <div sec:authorize="hasRole('ADMIN')">
             <a th:href="@{/guests/new}" class="btn btn-success">Добавить гостя</a>
         </div>
     </div>
@@ -51,11 +52,16 @@
             <td th:text="${guest.lastname}">Отчество</td>
             <td th:text="${guest.phone}">Телефон</td>
             <td>
-                <a th:href="@{|/guests/${guest.id}|}" class="btn btn-sm btn-warning">Редактировать</a>
-                <form th:action="@{|/guests/delete/${guest.id}|}" method="post" style="display:inline;">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить гостя?');">Удалить</button>
-                </form>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{|/guests/${guest.id}|}" class="btn btn-sm btn-warning">Редактировать</a>
+                    <form th:action="@{|/guests/delete/${guest.id}|}" method="post" style="display:inline;">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Удалить гостя?');">Удалить</button>
+                    </form>
+                </div>
+                <div sec:authorize="!hasRole('ADMIN')">
+                    <span class="text-muted">Нет доступа</span>
+                </div>
         </tr>
         </tbody>
     </table>
