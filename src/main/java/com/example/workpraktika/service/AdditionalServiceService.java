@@ -10,4 +10,5 @@ public interface AdditionalServiceService {
     Optional<additionalService> findById(Long id);
     List<additionalService> findAll();
     void deleteById(Long id);
+    List<additionalService> searchByName(String name);
 }

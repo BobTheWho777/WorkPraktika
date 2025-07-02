@@ -36,4 +36,10 @@ public class AdditionalServiceServiceImpl implements AdditionalServiceService {
     public void deleteById(Long id) {
         additionalServiceRepository.deleteById(id);
     }
+
+    @Override
+    public List<additionalService> searchByName(String name) {
+        return additionalServiceRepository.findByNameContainingIgnoreCase(name);
+    }
+
 }

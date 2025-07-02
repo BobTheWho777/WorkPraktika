@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/additional-services")
 
@@ -18,10 +20,19 @@ public class AdditionalServiceController {
     }
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("services", additionalServiceService.findAll());
+    public String list(@RequestParam(required = false) String search, Model model) {
+        List<additionalService> services;
+        if (search != null && !search.isBlank()) {
+            services = additionalServiceService.searchByName(search);
+        } else {
+            services = additionalServiceService.findAll();
+        }
+
+        model.addAttribute("services", services);
+        model.addAttribute("search", search);
         return "additional-services/list";
     }
+
 
     @GetMapping("/new")
     public String createForm(Model model) {
