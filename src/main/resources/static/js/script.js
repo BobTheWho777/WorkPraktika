@@ -28,15 +28,3 @@ $(function() {
     };
     const mask = new IMask(element, maskOptions);
 });
-
-/**
- * Функция для скрытия валидаций при нажатие на поле ввода
- *
- * function hideValidationRegForm() {
- *     const form = document.querySelector('form');
- *     const invalidFeedbacks = form.querySelectorAll('.text-danger');
- *     invalidFeedbacks.forEach(function(feedback) {
- *         feedback.style.display = 'none';
- *     });
- * }
- */
