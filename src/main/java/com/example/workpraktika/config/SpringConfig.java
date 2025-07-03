@@ -22,7 +22,7 @@ public class SpringConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/login", "/registration", "/css/**", "/js/**", "/img/**", "/error"
+                                "/login", "/registration", "/css/**", "/js/**", "/img/**", "/error", "/guide", "/about"
                         ).permitAll()
                         .requestMatchers(
                                 "/rooms/**",
