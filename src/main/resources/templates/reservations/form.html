@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title th:text="${reservation.id == null} ? 'Добавить бронь' : 'Редактировать бронь'">Форма бронирования</title>
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body class="container mt-4">
 
@@ -16,41 +15,40 @@
 
   <div class="mb-3">
     <label class="form-label">Номер комнаты</label>
-    <select class="form-select" th:field="*{room}" required>
-      <option th:each="r : ${rooms}" th:value="${r}" th:text="${r.numberRoom}">Комната</option>
+    <select class="form-select" th:field="*{room.id}" required>
+      <option value="" disabled selected>Выберите комнату</option>
+      <option th:each="r : ${rooms}" th:value="${r.id}" th:text="${r.numberRoom}"></option>
     </select>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Постоялец</label>
-    <select class="form-select" th:field="*{guest}" required>
-      <option th:each="g : ${guests}" th:value="${g}" th:text="${g.name + ' ' + g.surname}">Гость</option>
+    <select class="form-select" th:field="*{guest.id}" required>
+      <option value="" disabled selected>Выберите гостя</option>
+      <option th:each="g : ${guests}" th:value="${g.id}" th:text="${g.name + ' ' + g.surname}"></option>
     </select>
   </div>
 
   <div class="mb-3">
     <label class="form-label">Организация</label>
-    <select class="form-select" th:field="*{organization}">
-      <option th:each="o : ${organizations}" th:value="${o}" th:text="${o.name}">Организация</option>
+    <select class="form-select" th:field="*{organization.id}">
+      <option value="">-- Без организации --</option>
+      <option th:each="o : ${organizations}" th:value="${o.id}" th:text="${o.name}"></option>
     </select>
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Дополнительная услуга (Если необходимо)</label>
-    <select class="form-select" th:field="*{additionalService}">
-      <option value="" selected>-- Нет услуги --</option>
-      <option th:each="s : ${services}" th:value="${s}" th:text="${s.name}">Услуга</option>
+    <label class="form-label">Дополнительные услуги</label>
+    <select class="form-select" multiple th:field="*{additionalServices}">
+      <option th:each="s : ${services}" th:value="${s.id}" th:text="${s.name}">Услуга</option>
     </select>
-
   </div>
 
   <div class="mb-3">
-    <label class="form-label">Жалоба (если есть)</label>
-    <select class="form-select" th:field="*{complaint}">
-      <option value="" selected>-- Нет жалобы --</option>
-      <option th:each="c : ${complaints}" th:value="${c}" th:text="${c.text}">Жалоба</option>
+    <label class="form-label">Жалобы</label>
+    <select class="form-select" multiple th:field="*{complaints}">
+      <option th:each="c : ${complaints}" th:value="${c.id}" th:text="${c.text}">Жалоба</option>
     </select>
-
   </div>
 
   <div class="mb-3">
@@ -90,7 +88,8 @@
 
   <div class="d-flex justify-content-between">
     <a th:href="@{/reservations}" class="btn btn-secondary">Назад</a>
-    <button type="submit" class="btn btn-primary" th:text="${reservation.id == null} ? 'Создать' : 'Сохранить изменения'">
+    <button type="submit" class="btn btn-primary"
+            th:text="${reservation.id == null} ? 'Создать' : 'Сохранить изменения'">
       Сохранить
     </button>
   </div>
@@ -98,4 +97,3 @@
 
 </body>
 </html>
-

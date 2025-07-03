@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,9 +54,41 @@ public class ReservationController {
 
     @PostMapping
     public String save(@ModelAttribute Reservation reservation) {
+        reservation.setRoom(roomService.findById(reservation.getRoom().getId()).orElse(null));
+        reservation.setGuest(guestService.findById(reservation.getGuest().getId()).orElse(null));
+
+        if (reservation.getOrganization() != null && reservation.getOrganization().getId() != null) {
+            reservation.setOrganization(organizationService.findById(reservation.getOrganization().getId()).orElse(null));
+        } else {
+            reservation.setOrganization(null);
+        }
+
+        if (reservation.getAdditionalServices() != null && !reservation.getAdditionalServices().isEmpty()) {
+            reservation.setAdditionalServices(
+                    reservation.getAdditionalServices().stream()
+                            .map(s -> additionalServiceService.findById(s.getId()).orElse(null))
+                            .filter(java.util.Objects::nonNull)
+                            .toList()
+            );
+        } else {
+            reservation.setAdditionalServices(new ArrayList<>());
+        }
+
+        if (reservation.getComplaints() != null && !reservation.getComplaints().isEmpty()) {
+            reservation.setComplaints(
+                    reservation.getComplaints().stream()
+                            .map(c -> complaintService.findById(c.getId()).orElse(null))
+                            .filter(java.util.Objects::nonNull)
+                            .toList()
+            );
+        } else {
+            reservation.setComplaints(new ArrayList<>());
+        }
+
         reservationService.save(reservation);
         return "redirect:/reservations";
     }
+
 
     @GetMapping("/{id}")
     public String editForm(@PathVariable Long id, Model model) {

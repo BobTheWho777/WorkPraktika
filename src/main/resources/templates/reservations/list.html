@@ -21,7 +21,8 @@
     <div class="d-flex justify-content-between mb-2">
         <h2>Бронирования</h2>
         <div sec:authorize="hasRole('ADMIN')">
-            <a th:href="@{/reservations/new}" class="btn btn-success">Добавить бронирование</a></div>
+            <a th:href="@{/reservations/new}" class="btn btn-success">Добавить бронирование</a>
+        </div>
     </div>
 
     <table class="table table-striped">
@@ -33,6 +34,8 @@
             <th>Дата заезда</th>
             <th>Дата выезда</th>
             <th>Долг</th>
+            <th>Услуги</th>
+            <th>Жалобы</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -44,6 +47,23 @@
             <td th:text="${r.dateIn}">2025-06-10</td>
             <td th:text="${r.dateOut}">2025-06-15</td>
             <td th:text="${r.totalDebt}">5000</td>
+
+            <!-- Доп. услуги -->
+            <td>
+                <span th:if="${#lists.isEmpty(r.additionalServices)}">—</span>
+                <span th:if="${!#lists.isEmpty(r.additionalServices)}"
+                      th:each="s, iterStat : ${r.additionalServices}"
+                      th:text="${s.name + (iterStat.last ? '' : ', ')}"></span>
+            </td>
+
+            <!-- Жалобы -->
+            <td>
+                <span th:if="${#lists.isEmpty(r.complaints)}">—</span>
+                <span th:if="${!#lists.isEmpty(r.complaints)}"
+                      th:each="c, iterStat : ${r.complaints}"
+                      th:text="${c.text + (iterStat.last ? '' : ', ')}"></span>
+            </td>
+
             <td>
                 <div sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{|/reservations/${r.id}|}" class="btn btn-sm btn-warning">Редактировать</a>
@@ -61,7 +81,6 @@
     </table>
 </div>
 
-<!-- Подвал -->
 <footer th:replace="~{/fragments/footer :: footer}"></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

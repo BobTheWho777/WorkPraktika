@@ -2,7 +2,6 @@ package com.example.workpraktika.controller;
 
 import com.example.workpraktika.model.additionalService;
 import com.example.workpraktika.service.AdditionalServiceService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

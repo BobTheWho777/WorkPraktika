@@ -1,9 +1,9 @@
 package com.example.workpraktika.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Reservations")
@@ -32,22 +32,26 @@ public class Reservation {
     private String dateIn;
     private String dateOut;
 
-    @ManyToOne
-    @JoinColumn(name = "additional_service_id")
-    private additionalService additionalService;
+    @ManyToMany
+    @JoinTable(name = "reservation_services",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id"))
+    private List<additionalService> additionalServices = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "complaint_id")
-    private Complaint complaint;
+    @ManyToMany
+    @JoinTable(name = "reservation_complaints",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "complaint_id"))
+    private List<Complaint> complaints = new ArrayList<>();
+
 
     @Column(name = "total_debt", nullable = false, length = 50)
     private String totalDebt;
 
     public Reservation() {
-
     }
 
-    public Reservation(Long id, Room room, Guest guest, Organization organization, String floor, String reservations, String numberOfPeople, String dateReservation, String dateIn, String dateOut, com.example.workpraktika.model.additionalService additionalService, Complaint complaint, String totalDebt) {
+    public Reservation(Long id, Room room, Guest guest, Organization organization, String floor, String reservations, String numberOfPeople, String dateReservation, String dateIn, String dateOut, List<additionalService> additionalServices, List<Complaint> complaints, String totalDebt) {
         this.id = id;
         this.room = room;
         this.guest = guest;
@@ -58,8 +62,8 @@ public class Reservation {
         this.dateReservation = dateReservation;
         this.dateIn = dateIn;
         this.dateOut = dateOut;
-        this.additionalService = additionalService;
-        this.complaint = complaint;
+        this.additionalServices = additionalServices;
+        this.complaints = complaints;
         this.totalDebt = totalDebt;
     }
 
@@ -143,20 +147,20 @@ public class Reservation {
         this.dateOut = dateOut;
     }
 
-    public additionalService getAdditionalService() {
-        return additionalService;
+    public List<additionalService> getAdditionalServices() {
+        return additionalServices;
     }
 
-    public void setAdditionalService(additionalService additionalService) {
-        this.additionalService = additionalService;
+    public void setAdditionalServices(List<additionalService> additionalServices) {
+        this.additionalServices = additionalServices;
     }
 
-    public Complaint getComplaint() {
-        return complaint;
+    public List<Complaint> getComplaints() {
+        return complaints;
     }
 
-    public void setComplaint(Complaint complaint) {
-        this.complaint = complaint;
+    public void setComplaints(List<Complaint> complaints) {
+        this.complaints = complaints;
     }
 
     public String getTotalDebt() {
@@ -167,3 +171,6 @@ public class Reservation {
         this.totalDebt = totalDebt;
     }
 }
+
+
+
